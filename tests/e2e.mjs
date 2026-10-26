@@ -96,11 +96,47 @@ await page.waitForSelector('.plots canvas', { timeout: 120000 });
 ok(true, 'графік побудовано');
 await page.screenshot({ path: path.join(shots, '04-play.png') });
 
-for (const r of ['#/problems', '#/ref', '#/progress']) {
+console.log('Завдання з графіком');
+await page.goto(base + '#/l/m07-l03/1');
+await page.waitForSelector('.pane.sticky .CodeMirror');
+await setCode('hist(mtcars$mpg, breaks = 8, main = "Витрата пального", xlab = "mpg", col = "lightblue")');
+await page.click('#check-btn');
+await page.waitForSelector('.feedback.ok', { timeout: 60000 });
+await page.waitForSelector('.plots canvas');
+ok(true, 'завдання з графіком зараховано');
+await page.screenshot({ path: path.join(shots, '05-plot-exercise.png') });
+
+console.log('Задача з банку');
+await page.goto(base + '#/p/p-easy-2');
+await page.waitForSelector('.pane.sticky .CodeMirror');
+await setCode('n <- 1:999\ntotal <- sum(n[n %% 3 == 0 | n %% 5 == 0])');
+await page.click('#check-btn');
+await page.waitForSelector('.feedback.ok', { timeout: 60000 });
+ok((await page.locator('.feedback.ok').innerText()).includes('+15 XP'), 'легка задача дає +15 XP');
+
+console.log('Інші сторінки');
+for (const r of ['#/problems', '#/ref', '#/progress', '#/m/m05']) {
   await page.goto(base + r);
-  await page.waitForTimeout(600);
-  await page.screenshot({ path: path.join(shots, 'page-' + r.slice(2) + '.png') });
+  await page.waitForTimeout(900);
+  await page.screenshot({ path: path.join(shots, 'page-' + r.replace(/[#\/]/g, '_') + '.png') });
 }
+await page.goto(base + '#/ref');
+await page.fill('.search', 'регресія');
+await page.waitForTimeout(300);
+ok((await page.locator('.ref-entry:not(.hidden)').count()) >= 1, 'пошук у довіднику працює');
+
+console.log('Темна тема і мобільний вигляд');
+await page.click('#themebtn');
+await page.goto(base + '#/l/m02-l01/1');
+await page.waitForSelector('.pane.sticky .CodeMirror');
+await page.screenshot({ path: path.join(shots, '06-dark.png') });
+await page.setViewportSize({ width: 390, height: 844 });
+await page.goto(base + '#/l/m02-l01/0');
+await page.waitForSelector('.runblock');
+await page.screenshot({ path: path.join(shots, '07-mobile-theory.png') });
+await page.goto(base + '#/');
+await page.waitForSelector('.hero');
+await page.screenshot({ path: path.join(shots, '08-mobile-home.png') });
 
 await browser.close();
 server.close();

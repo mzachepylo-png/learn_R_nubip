@@ -209,7 +209,7 @@ main { flex: 1; width: 100%; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 7px;
   padding: 8px 16px; border-radius: 9px; border: 1px solid var(--border);
-  background: var(--surface); color: var(--text); font-weight: 600; cursor: pointer; font-size: 0.93rem;
+  background: var(--surface); color: var(--text); font-weight: 600; cursor: pointer; font-size: 0.93rem; white-space: nowrap;
   transition: background 0.15s, border-color 0.15s, transform 0.05s;
 }
 .btn:hover { background: var(--surface-2); text-decoration: none; }
@@ -362,7 +362,7 @@ li.CodeMirror-hint-active { background: var(--primary); color: var(--on-primary)
 
 /* ===== Виконувані блоки в теорії ===== */
 .runblock { margin: 0 0 1.1em; border: 1px solid var(--code-border); border-radius: var(--radius-sm); overflow: hidden; background: var(--code-bg); }
-.runblock .rb-bar { display: flex; gap: 6px; padding: 6px 8px; background: var(--code-gutter); border-top: 1px solid var(--code-border); align-items: center; }
+.runblock .rb-bar { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 8px; background: var(--code-gutter); border-top: 1px solid var(--code-border); align-items: center; }
 .runblock .rb-bar .hint { margin-left: auto; font-size: 0.75rem; color: var(--muted); }
 .runblock .CodeMirror { background: var(--code-bg); }
 
@@ -437,10 +437,11 @@ details.setup .static-code { margin-top: 8px; }
 .ref-entry { break-inside: avoid; margin-bottom: 16px; }
 .ref-entry .card { gap: 6px; }
 .ref-entry h4 { margin: 0; font-size: 1rem; }
+.ref-entry .prose > :last-child { margin-bottom: 0; }
 .ref-cat { margin: 26px 0 12px; display: flex; align-items: center; gap: 10px; }
 
 /* ===== Прогрес ===== */
-.heat { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 14px); gap: 3px; overflow-x: auto; padding-bottom: 4px; }
+.heat { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 14px); grid-auto-columns: 14px; justify-content: start; gap: 3px; overflow-x: auto; padding-bottom: 4px; }
 .heat i { width: 14px; height: 14px; border-radius: 3px; background: var(--surface-3); display: block; }
 .heat i.l1 { background: color-mix(in srgb, var(--success) 35%, var(--surface-3)); }
 .heat i.l2 { background: color-mix(in srgb, var(--success) 60%, var(--surface-3)); }
@@ -472,6 +473,13 @@ details.setup .static-code { margin-top: 8px; }
   .chip.streak span.lbl, .chip.xp span.lbl { display: none; }
   .prob-row { grid-template-columns: 24px 1fr auto; }
   .prob-row .topic { display: none; }
+}
+@media (max-width: 720px) {
+  .topbar-inner { flex-wrap: wrap; height: auto; padding: 8px 16px; gap: 8px 12px; }
+  .nav { order: 3; flex: 1 1 100%; margin: 0 -4px; }
+  .top-right { margin-left: auto; }
+  .container { padding-top: 20px; }
+  .toolbar .btn { flex: 1 1 auto; }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 @media print { .topbar, .footer, .toolbar, .btn { display: none !important; } }

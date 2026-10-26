@@ -84,6 +84,23 @@ for (const mod of manifest.modules) {
   }
 }
 
+// ---- довідник ----
+{
+  const ref = readJSON('data/reference.json');
+  let nRef = 0;
+  for (const sec of ref) {
+    for (const e of sec.entries) {
+      const blocks = [...e.md.matchAll(/^```r[ \t]*\n([\s\S]*?)^```[ \t]*$/gm)].map((m) => m[1]);
+      for (const code of blocks) {
+        nRef++;
+        const r = await exec(code, '', 'val-ref-' + e.title);
+        if (!r.ok) fail(`довідник «${e.title}»`, 'приклад завершується помилкою', code + '\n---\n' + r.output);
+      }
+    }
+  }
+  nTheory += nRef;
+}
+
 // ---- задачі ----
 for (const p of problems) {
   if (!wanted(p.id)) continue;
