@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>R з нуля — інтерактивний курс з аналізу даних і моделювання</title>
+  <meta name="description" content="Вивчайте мову R у браузері: конспекти, код, що виконується одразу, завдання з автоперевіркою, банк задач з аналізу даних і математичного моделювання. Прогрес зберігається.">
+  <meta property="og:title" content="R з нуля — інтерактивний курс">
+  <meta property="og:description" content="Практичний курс R українською: від арифметики до регресії та диференціальних моделей. Працює повністю в браузері.">
+  <meta name="theme-color" content="#1f66c2">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f66c2'/%3E%3Ctext x='32' y='47' font-size='42' font-weight='800' text-anchor='middle' fill='white' font-family='Arial'%3ER%3C/text%3E%3C/svg%3E">
+  <script>
+    // застосовуємо тему до першого малювання, щоб не було «спалаху»
+    try {
+      var t = (JSON.parse(localStorage.getItem('nubip-r-progress-v1')) || {}).theme;
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="vendor/codemirror/codemirror.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#/" aria-label="На головну"><span class="brand-logo">R</span><span>R з нуля</span></a>
+      <nav class="nav" aria-label="Основна навігація" id="nav">
+        <a href="#/" data-route="home">Курс</a>
+        <a href="#/problems" data-route="problems">Задачі</a>
+        <a href="#/play" data-route="play">Пісочниця</a>
+        <a href="#/ref" data-route="ref">Довідник</a>
+        <a href="#/progress" data-route="progress">Прогрес</a>
+      </nav>
+      <div class="top-right">
+        <button class="rstatus" id="rstatus" type="button" title="Стан середовища R" style="background:none;border:0;cursor:pointer;color:inherit;"><span class="dot" id="rdot"></span><span class="txt" id="rtxt">R</span></button>
+        <a class="chip xp" href="#/progress" id="xpchip" title="Бали досвіду">⭐ <span id="xpval">0</span><span class="lbl"> XP</span></a>
+        <a class="chip streak" href="#/progress" id="stchip" title="Днів поспіль">🔥 <span id="stval">0</span></a>
+        <button class="icon-btn" id="themebtn" type="button" aria-label="Перемкнути тему" title="Світла / темна тема">🌓</button>
+      </div>
+    </div>
+  </header>
+  <main id="app"><div class="loader-screen"><span class="spinner"></span>Завантаження…</div></main>
+  <footer class="footer">
+    R виконується прямо у вашому браузері завдяки <a href="https://docs.r-wasm.org/webr/latest/" target="_blank" rel="noopener">WebR</a>. Прогрес зберігається локально.
+    · <a href="https://github.com/mzachepylo-png/learn_R_nubip" target="_blank" rel="noopener">Код на GitHub</a>
+  </footer>
+  <noscript><p style="padding:24px">Для роботи курсу потрібен JavaScript.</p></noscript>
+  <script src="vendor/codemirror/codemirror.bundle.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

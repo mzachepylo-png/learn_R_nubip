@@ -1,0 +1,17 @@
+{
+  "name": "learn-r-nubip",
+  "version": "1.0.0",
+  "description": "Інтерактивний курс R з нуля (GitHub Pages + WebR)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "validate": "node tests/validate.mjs",
+    "test": "node tools/build.mjs --check && node tests/validate.mjs",
+    "serve": "node tools/serve.mjs"
+  },
+  "devDependencies": {
+    "webr": "0.6.0"
+  },
+  "license": "MIT"
+}
